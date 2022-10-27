@@ -22,7 +22,9 @@ function changeOscillatorFrequency() {
   oscillator.frequency.setValueAtTime(slider.value, audioCtx.currentTime); // value in hertz
 }
 
-function changeOscillatorType() {}
+function changeOscillatorType(type) {
+  oscillator.type = type
+}
 
 function createSlider () {
   const slider = document.createElement('input')
@@ -38,21 +40,21 @@ function createSlider () {
   })
 }
 
-function createButton(text) { // здесь в скобках написан аргумент/параметр/проперти функцииы
+function createButton(text, callback, parameter) { // здесь в скобках написан аргумент/параметр/проперти функцииы
   const button = document.createElement('div')
   button.innerText = text
   button.classList.add('button') // класс с помощью функции добалвяем
   container.appendChild(button)
 
   button.addEventListener('click', () => {
-    oscillator.type = text
+    callback(parameter)
   })
 }
 
 function createOscillatorTypeButtons () {
   const types = ['sine', 'square', 'sawtooth', 'triangle']
   types.forEach((type, i) => {
-    createButton(type)
+    createButton(type, changeOscillatorType, type)
   })
 }
 
@@ -70,4 +72,5 @@ document.addEventListener('DOMContentLoaded', () => {
     createSlider()
     createOscillatorTypeButtons()
   })
+  console.log('Yo')
 })
